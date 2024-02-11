@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:islami_sun_c10/model/screen_details_args.dart';
+import 'package:islami_sun_c10/ui/screens/sura_details/sura_details.dart';
 import 'package:islami_sun_c10/ui/utils/app_assets.dart';
 import 'package:islami_sun_c10/ui/utils/app_colors.dart';
 import 'package:islami_sun_c10/ui/utils/app_theme.dart';
@@ -32,43 +34,40 @@ class QuranTab extends StatelessWidget {
   }
 
   Widget buildScreenContent() {
-    return Expanded(
-      flex: 7,
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 3,
-            color: AppColors.orange,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "Verses",
-                    textAlign: TextAlign.center,
-                    style: AppTheme.mediumTitleTextStyle,
-                  ),
-                ),
-                Expanded(
-                    child: Text(
-                  "Sura name",
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 3,
+          color: AppColors.orange,
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  "Verses",
                   textAlign: TextAlign.center,
                   style: AppTheme.mediumTitleTextStyle,
-                )),
-              ],
-            ),
+                ),
+              ),
+              Expanded(
+                  child: Text(
+                "Sura name",
+                textAlign: TextAlign.center,
+                style: AppTheme.mediumTitleTextStyle,
+              )),
+            ],
           ),
-          Container(
-            width: double.infinity,
-            height: 3,
-            color: AppColors.orange,
-          ),
-          Expanded(flex: 7, child: buildSurasListView())
-        ],
-      ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 3,
+          color: AppColors.orange,
+        ),
+        Expanded(flex: 7, child: buildSurasListView())
+      ],
     );
   }
 
@@ -76,22 +75,31 @@ class QuranTab extends StatelessWidget {
     return ListView.builder(
         itemCount: Constants.suraNames.length,
         itemBuilder: (context, index) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                  child: Text(
-                "${Constants.versesNumber[index]}",
-                textAlign: TextAlign.center,
-                style: AppTheme.regularTitleTextStyle,
-              )),
-              Expanded(
-                  child: Text(
-                Constants.suraNames[index],
-                textAlign: TextAlign.center,
-                style: AppTheme.regularTitleTextStyle,
-              )),
-            ],
+          return InkWell(
+            onTap: (){
+              ScreenDetailsArgs arguments = ScreenDetailsArgs(
+                  fileName: "${index + 1}.txt",
+                  name: Constants.suraNames[index]);
+              Navigator.pushNamed(context, SuraDetails.routeName,
+                  arguments: arguments);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                    child: Text(
+                  "${Constants.versesNumber[index]}",
+                  textAlign: TextAlign.center,
+                  style: AppTheme.regularTitleTextStyle,
+                )),
+                Expanded(
+                    child: Text(
+                  Constants.suraNames[index],
+                  textAlign: TextAlign.center,
+                  style: AppTheme.regularTitleTextStyle,
+                )),
+              ],
+            ),
           );
         });
   }

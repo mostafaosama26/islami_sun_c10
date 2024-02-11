@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 2), (){
       Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     });
+
   }
 
   @override
@@ -27,11 +28,4 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Image.asset(AppAssets.splash),
     );
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-    
-  }
-
 }
