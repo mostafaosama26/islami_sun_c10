@@ -3,9 +3,12 @@ import 'package:islami_sun_c10/ui/screens/home/tabs/ahadeth/ahadeth_tab.dart';
 import 'package:islami_sun_c10/ui/screens/home/tabs/quran/quran_tab.dart';
 import 'package:islami_sun_c10/ui/screens/home/tabs/radio/radio_tab.dart';
 import 'package:islami_sun_c10/ui/screens/home/tabs/sebha/sebha_tab.dart';
+import 'package:islami_sun_c10/ui/screens/home/tabs/settings/settings_tab.dart';
 import 'package:islami_sun_c10/ui/utils/app_assets.dart';
 import 'package:islami_sun_c10/ui/utils/app_colors.dart';
-import 'package:islami_sun_c10/ui/utils/app_theme.dart';
+
+import '../../utils/app_localization_utils.dart';
+import '../../widgets/app_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home screen";
@@ -17,67 +20,66 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentTabIndex = 0;
-  Widget body = QuranTab();
-
+  int currentTabIndex = 4;
+  List<Widget> tabs = [
+    QuranTab(),
+    AhadethTab(),
+    SebhaTab(),
+    RadioTab(),
+    SettingsTab()
+  ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage(AppAssets.background))),
-      child: Scaffold(
-        backgroundColor: AppColors.transparent,
-        appBar: buildAppBar(),
-        bottomNavigationBar: buildBottomNavigation(),
-        body: body,
-      ),
+    return AppScaffold(
+      title: context.l10n.suraName,
+      bottomNavigation: buildBottomNavigation,
+      body: tabs[currentTabIndex],
     );
   }
 
-  AppBar buildAppBar() => AppBar(
-        backgroundColor: AppColors.transparent,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text(
-          "Islami",
-          style: AppTheme.appBarTextStyle,
-        ),
-      );
-
-  Widget buildBottomNavigation() => Theme(
+  Widget get buildBottomNavigation => Theme(
         data: ThemeData(canvasColor: AppColors.orange),
         child: BottomNavigationBar(
           backgroundColor: AppColors.orange,
           items: [
-            buildBottomNavigationBarItem(AppAssets.icQuran, "Quran"),
-            buildBottomNavigationBarItem(AppAssets.icAhadeth, "Ahadeth"),
-            buildBottomNavigationBarItem(AppAssets.icSebha, "Sebha"),
-            buildBottomNavigationBarItem(AppAssets.icRadio, "Radio"),
+            buildBottomNavigationBarItem(
+              "Quran",
+              imagePath: AppAssets.icQuran,
+            ),
+            buildBottomNavigationBarItem(
+              "Ahadeth",
+              imagePath: AppAssets.icAhadeth,
+            ),
+            buildBottomNavigationBarItem(
+              "Sebha",
+              imagePath: AppAssets.icSebha,
+            ),
+            buildBottomNavigationBarItem(
+              "Radio",
+              imagePath: AppAssets.icRadio,
+            ),
+            buildBottomNavigationBarItem(
+              "Settings",
+              iconData: Icons.settings_rounded,
+            ),
           ],
           selectedItemColor: AppColors.lightBlack,
           currentIndex: currentTabIndex,
           onTap: (index) {
             currentTabIndex = index;
-            if (currentTabIndex == 0) {
-              body = QuranTab();
-            } else if (currentTabIndex == 1) {
-              body = AhadethTab();
-            } else if (currentTabIndex == 2) {
-              body = SebhaTab();
-            } else {
-              body = RadioTab();
-            }
             setState(() {});
           },
         ),
       );
 
-  BottomNavigationBarItem buildBottomNavigationBarItem(
-          String imagePath, String label) =>
+  BottomNavigationBarItem buildBottomNavigationBarItem(String label,
+          {String? imagePath, IconData? iconData}) =>
       BottomNavigationBarItem(
-          icon: ImageIcon(
-            AssetImage(imagePath),
-            size: 32,
-          ),
+          icon: imagePath != null
+              ? ImageIcon(
+                  AssetImage(imagePath),
+                  size: 32,
+                )
+              : Icon(iconData!),
           label: label);
 }

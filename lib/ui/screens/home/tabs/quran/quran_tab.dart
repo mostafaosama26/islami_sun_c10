@@ -5,6 +5,7 @@ import 'package:islami_sun_c10/ui/utils/app_assets.dart';
 import 'package:islami_sun_c10/ui/utils/app_colors.dart';
 import 'package:islami_sun_c10/ui/utils/app_theme.dart';
 import 'package:islami_sun_c10/ui/utils/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class QuranTab extends StatelessWidget {
   const QuranTab({super.key});
@@ -20,7 +21,7 @@ class QuranTab extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              buildScreenContent(),
+              buildScreenContent(context),
               Container(
                 width: 3,
                 height: double.infinity,
@@ -33,7 +34,8 @@ class QuranTab extends StatelessWidget {
     );
   }
 
-  Widget buildScreenContent() {
+  Widget buildScreenContent(BuildContext context) {
+    int x;
     return Column(
       children: [
         Container(
@@ -41,20 +43,20 @@ class QuranTab extends StatelessWidget {
           height: 3,
           color: AppColors.orange,
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
             children: [
               Expanded(
                 child: Text(
-                  "Verses",
+                  AppLocalizations.of(context)!.verses,
                   textAlign: TextAlign.center,
                   style: AppTheme.mediumTitleTextStyle,
                 ),
               ),
               Expanded(
                   child: Text(
-                "Sura name",
+                    AppLocalizations.of(context)!.suraName,
                 textAlign: TextAlign.center,
                 style: AppTheme.mediumTitleTextStyle,
               )),
