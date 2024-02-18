@@ -30,7 +30,7 @@ class AhadethTab extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 3,
-          color: AppColors.orange,
+          color: AppColors.primaryLight,
         ),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -48,7 +48,7 @@ class AhadethTab extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 3,
-          color: AppColors.orange,
+          color: AppColors.primaryLight,
         ),
         Expanded(flex: 7, child: buildSurasListView())
       ],

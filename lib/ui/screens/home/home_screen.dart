@@ -38,9 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget get buildBottomNavigation => Theme(
-        data: ThemeData(canvasColor: AppColors.orange),
+        data: Theme.of(context).copyWith(canvasColor: Theme.of(context).primaryColor),
         child: BottomNavigationBar(
-          backgroundColor: AppColors.orange,
           items: [
             buildBottomNavigationBarItem(
               "Quran",
@@ -63,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
               iconData: Icons.settings_rounded,
             ),
           ],
-          selectedItemColor: AppColors.lightBlack,
           currentIndex: currentTabIndex,
           onTap: (index) {
             currentTabIndex = index;

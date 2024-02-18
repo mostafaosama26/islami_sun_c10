@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:islami_sun_c10/ui/providers/theme_provider.dart';
 import 'package:islami_sun_c10/ui/utils/app_assets.dart';
 import 'package:islami_sun_c10/ui/utils/app_colors.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/app_theme.dart';
 
@@ -15,18 +17,14 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of(context);
     return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage(AppAssets.background))),
+      decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(themeProvider.mainBackground))),
       child: Scaffold(
-        backgroundColor: AppColors.transparent,
         appBar: AppBar(
-          backgroundColor: AppColors.transparent,
-          centerTitle: true,
-          elevation: 0,
           title: Text(
             title,
-            style: AppTheme.appBarTextStyle,
           ),
         ),
         bottomNavigationBar: bottomNavigation,
